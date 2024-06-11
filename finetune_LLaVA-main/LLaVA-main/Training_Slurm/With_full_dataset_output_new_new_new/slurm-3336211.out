@@ -1,0 +1,218 @@
+NOTE: This module uses Singularity. Some commands execute inside the container
+(e.g. python3, pip3).
+
+Requirement already satisfied: deepspeed in /scratch/project_2009936/lib/python3.9/site-packages (0.12.6)
+Requirement already satisfied: hjson in /usr/local/lib/python3.9/site-packages (from deepspeed) (3.1.0)
+Requirement already satisfied: ninja in /usr/local/lib64/python3.9/site-packages (from deepspeed) (1.11.1.1)
+Requirement already satisfied: numpy in /usr/local/lib64/python3.9/site-packages (from deepspeed) (1.26.4)
+Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.9/site-packages (from deepspeed) (23.2)
+Requirement already satisfied: psutil in /usr/local/lib64/python3.9/site-packages (from deepspeed) (5.9.8)
+Requirement already satisfied: py-cpuinfo in /usr/local/lib/python3.9/site-packages (from deepspeed) (9.0.0)
+Requirement already satisfied: pydantic in /usr/local/lib/python3.9/site-packages (from deepspeed) (2.6.2)
+Requirement already satisfied: pynvml in /usr/local/lib/python3.9/site-packages (from deepspeed) (11.5.0)
+Requirement already satisfied: torch in /scratch/project_2009936/lib/python3.9/site-packages (from deepspeed) (2.1.2)
+Requirement already satisfied: tqdm in /usr/local/lib/python3.9/site-packages (from deepspeed) (4.66.2)
+Requirement already satisfied: annotated-types>=0.4.0 in /usr/local/lib/python3.9/site-packages (from pydantic->deepspeed) (0.6.0)
+Requirement already satisfied: pydantic-core==2.16.3 in /usr/local/lib64/python3.9/site-packages (from pydantic->deepspeed) (2.16.3)
+Requirement already satisfied: typing-extensions>=4.6.1 in /usr/local/lib/python3.9/site-packages (from pydantic->deepspeed) (4.10.0)
+Requirement already satisfied: filelock in /usr/local/lib/python3.9/site-packages (from torch->deepspeed) (3.13.1)
+Requirement already satisfied: sympy in /usr/local/lib/python3.9/site-packages (from torch->deepspeed) (1.12)
+Requirement already satisfied: networkx in /usr/local/lib/python3.9/site-packages (from torch->deepspeed) (3.2.1)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.9/site-packages (from torch->deepspeed) (3.1.3)
+Requirement already satisfied: fsspec in /usr/local/lib/python3.9/site-packages (from torch->deepspeed) (2023.10.0)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.1.105 in /usr/local/lib/python3.9/site-packages (from torch->deepspeed) (12.1.105)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.1.105 in /usr/local/lib/python3.9/site-packages (from torch->deepspeed) (12.1.105)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.1.105 in /usr/local/lib/python3.9/site-packages (from torch->deepspeed) (12.1.105)
+Requirement already satisfied: nvidia-cudnn-cu12==8.9.2.26 in /usr/local/lib/python3.9/site-packages (from torch->deepspeed) (8.9.2.26)
+Requirement already satisfied: nvidia-cublas-cu12==12.1.3.1 in /usr/local/lib/python3.9/site-packages (from torch->deepspeed) (12.1.3.1)
+Requirement already satisfied: nvidia-cufft-cu12==11.0.2.54 in /usr/local/lib/python3.9/site-packages (from torch->deepspeed) (11.0.2.54)
+Requirement already satisfied: nvidia-curand-cu12==10.3.2.106 in /usr/local/lib/python3.9/site-packages (from torch->deepspeed) (10.3.2.106)
+Requirement already satisfied: nvidia-cusolver-cu12==11.4.5.107 in /usr/local/lib/python3.9/site-packages (from torch->deepspeed) (11.4.5.107)
+Requirement already satisfied: nvidia-cusparse-cu12==12.1.0.106 in /usr/local/lib/python3.9/site-packages (from torch->deepspeed) (12.1.0.106)
+Requirement already satisfied: nvidia-nccl-cu12==2.18.1 in /scratch/project_2009936/lib/python3.9/site-packages (from torch->deepspeed) (2.18.1)
+Requirement already satisfied: nvidia-nvtx-cu12==12.1.105 in /usr/local/lib/python3.9/site-packages (from torch->deepspeed) (12.1.105)
+Requirement already satisfied: triton==2.1.0 in /scratch/project_2009936/lib/python3.9/site-packages (from torch->deepspeed) (2.1.0)
+Requirement already satisfied: nvidia-nvjitlink-cu12 in /usr/local/lib/python3.9/site-packages (from nvidia-cusolver-cu12==11.4.5.107->torch->deepspeed) (12.3.101)
+Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib64/python3.9/site-packages (from jinja2->torch->deepspeed) (2.1.5)
+Requirement already satisfied: mpmath>=0.19 in /usr/local/lib/python3.9/site-packages (from sympy->torch->deepspeed) (1.3.0)
+[2024-03-28 11:17:19,764] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+/scratch/project_2009936/lib/python3.9/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[2024-03-28 11:17:56,450] [WARNING] [runner.py:202:fetch_hostfile] Unable to find hostfile, will proceed with training with local resources only.
+Detected CUDA_VISIBLE_DEVICES=0,1,2,3: setting --include=localhost:0,1,2,3
+[2024-03-28 11:17:56,450] [INFO] [runner.py:571:main] cmd = /usr/bin/python3.9 -u -m deepspeed.launcher.launch --world_info=eyJsb2NhbGhvc3QiOiBbMCwgMSwgMiwgM119 --master_addr=127.0.0.1 --master_port=29500 --enable_each_rank_log=None llava/train/train_mem.py --lora_enable True --lora_r 128 --lora_alpha 256 --mm_projector_lr 2e-5 --deepspeed ./scripts/zero3.json --model_name_or_path liuhaotian/llava-v1.5-13b --version v1 --data_path ./playground/data/output_new_new_new.json --image_folder ./playground/data/image_data --vision_tower openai/clip-vit-large-patch14-336 --mm_projector_type mlp2x_gelu --mm_vision_select_layer -2 --mm_use_im_start_end False --mm_use_im_patch_token False --image_aspect_ratio pad --group_by_modality_length True --bf16 True --output_dir ./checkpoints2/llava-v1.5-13b-task-lora --num_train_epochs 1 --per_device_train_batch_size 16 --per_device_eval_batch_size 4 --gradient_accumulation_steps 1 --evaluation_strategy no --save_strategy steps --save_steps 50000 --save_total_limit 1 --learning_rate 2e-4 --weight_decay 0. --warmup_ratio 0.03 --lr_scheduler_type cosine --logging_steps 1 --tf32 True --model_max_length 2048 --gradient_checkpointing True --dataloader_num_workers 4 --lazy_preprocess True --report_to wandb
+[2024-03-28 11:17:58,761] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+/scratch/project_2009936/lib/python3.9/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[2024-03-28 11:18:01,803] [INFO] [launch.py:145:main] WORLD INFO DICT: {'localhost': [0, 1, 2, 3]}
+[2024-03-28 11:18:01,803] [INFO] [launch.py:151:main] nnodes=1, num_local_procs=4, node_rank=0
+[2024-03-28 11:18:01,803] [INFO] [launch.py:162:main] global_rank_mapping=defaultdict(<class 'list'>, {'localhost': [0, 1, 2, 3]})
+[2024-03-28 11:18:01,803] [INFO] [launch.py:163:main] dist_world_size=4
+[2024-03-28 11:18:01,803] [INFO] [launch.py:165:main] Setting CUDA_VISIBLE_DEVICES=0,1,2,3
+/scratch/project_2009936/lib/python3.9/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/scratch/project_2009936/lib/python3.9/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/scratch/project_2009936/lib/python3.9/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/scratch/project_2009936/lib/python3.9/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[2024-03-28 11:18:05,813] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-28 11:18:05,859] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-28 11:18:05,878] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-28 11:18:05,889] [INFO] [real_accelerator.py:161:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+[2024-03-28 11:18:10,610] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-28 11:18:10,610] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-28 11:18:10,610] [INFO] [comm.py:637:init_distributed] cdb=None
+[2024-03-28 11:18:10,611] [INFO] [comm.py:668:init_distributed] Initializing TorchBackend in DeepSpeed with backend nccl
+[2024-03-28 11:18:10,611] [INFO] [comm.py:637:init_distributed] cdb=None
+You are using a model of type llava to instantiate a model of type llava_llama. This is not supported for all configurations of models and can yield errors.
+Downloading shards:   0%|          | 0/3 [00:00<?, ?it/s]Downloading shards: 100%|██████████| 3/3 [00:00<00:00, 724.61it/s]
+You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+You are using a model of type llava to instantiate a model of type llava_llama. This is not supported for all configurations of models and can yield errors.
+You are using a model of type llava to instantiate a model of type llava_llama. This is not supported for all configurations of models and can yield errors.
+Downloading shards:   0%|          | 0/3 [00:00<?, ?it/s]Downloading shards:   0%|          | 0/3 [00:00<?, ?it/s]Downloading shards: 100%|██████████| 3/3 [00:00<00:00, 2678.93it/s]
+Downloading shards: 100%|██████████| 3/3 [00:00<00:00, 2823.81it/s]
+You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+You are using a model of type llava to instantiate a model of type llava_llama. This is not supported for all configurations of models and can yield errors.
+You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+Downloading shards:   0%|          | 0/3 [00:00<?, ?it/s]Downloading shards: 100%|██████████| 3/3 [00:00<00:00, 2769.13it/s]
+You are attempting to use Flash Attention 2.0 with a model not initialized on GPU. Make sure to move the model to GPU after initializing it on CPU with `model.to('cuda')`.
+[2024-03-28 11:18:28,998] [INFO] [partition_parameters.py:348:__exit__] finished initializing model - num_params = 367, num_elems = 13.05B
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]/scratch/project_2009936/lib/python3.9/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+/scratch/project_2009936/lib/python3.9/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+/scratch/project_2009936/lib/python3.9/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+/scratch/project_2009936/lib/python3.9/site-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:11<00:22, 11.15s/it]Loading checkpoint shards:  33%|███▎      | 1/3 [00:11<00:22, 11.17s/it]Loading checkpoint shards:  33%|███▎      | 1/3 [00:11<00:22, 11.18s/it]Loading checkpoint shards:  33%|███▎      | 1/3 [00:14<00:29, 14.60s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:23<00:11, 11.68s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:23<00:11, 11.71s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:23<00:11, 11.73s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:26<00:13, 13.22s/it]Loading checkpoint shards: 100%|██████████| 3/3 [01:27<00:00, 35.71s/it]Loading checkpoint shards: 100%|██████████| 3/3 [01:27<00:00, 29.18s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [01:27<00:00, 35.72s/it]Loading checkpoint shards: 100%|██████████| 3/3 [01:27<00:00, 29.18s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [01:27<00:00, 35.73s/it]Loading checkpoint shards: 100%|██████████| 3/3 [01:27<00:00, 29.19s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [01:31<00:00, 36.84s/it]Loading checkpoint shards: 100%|██████████| 3/3 [01:31<00:00, 30.60s/it]
+Adding LoRA adapters...
+[2024-03-28 11:20:44,926] [INFO] [partition_parameters.py:348:__exit__] finished initializing model - num_params = 758, num_elems = 13.35B
+Formatting inputs...Skip in lazy mode
+/scratch/project_2009936/lib/python3.9/site-packages/transformers/deepspeed.py:23: FutureWarning: transformers.deepspeed module is deprecated and will be removed in a future version. Please import deepspeed modules directly from transformers.integrations
+  warnings.warn(
+/scratch/project_2009936/lib/python3.9/site-packages/transformers/deepspeed.py:23: FutureWarning: transformers.deepspeed module is deprecated and will be removed in a future version. Please import deepspeed modules directly from transformers.integrations
+  warnings.warn(
+/scratch/project_2009936/lib/python3.9/site-packages/transformers/deepspeed.py:23: FutureWarning: transformers.deepspeed module is deprecated and will be removed in a future version. Please import deepspeed modules directly from transformers.integrations
+  warnings.warn(
+/scratch/project_2009936/lib/python3.9/site-packages/transformers/deepspeed.py:23: FutureWarning: transformers.deepspeed module is deprecated and will be removed in a future version. Please import deepspeed modules directly from transformers.integrations
+  warnings.warn(
+Parameter Offload: Total persistent parameters: 749568 in 328 params
+wandb: Currently logged in as: kiran-gangadharannairkrishnan. Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.16.5 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.16.4
+wandb: Run data is saved locally in /scratch/project_2009936/LLaVA-main/wandb/run-20240328_112054-pg6yoqcv
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run spring-plasma-7
+wandb: ⭐️ View project at https://wandb.ai/kiran-gangadharannairkrishnan/huggingface
+wandb: 🚀 View run at https://wandb.ai/kiran-gangadharannairkrishnan/huggingface/runs/pg6yoqcv
+  0%|          | 0/53 [00:00<?, ?it/s]/scratch/project_2009936/lib/python3.9/site-packages/torch/utils/checkpoint.py:429: UserWarning: torch.utils.checkpoint: please pass in use_reentrant=True or use_reentrant=False explicitly. The default value of use_reentrant will be updated to be False in the future. To maintain current behavior, pass use_reentrant=True. It is recommended that you use use_reentrant=False. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+/scratch/project_2009936/lib/python3.9/site-packages/torch/utils/checkpoint.py:429: UserWarning: torch.utils.checkpoint: please pass in use_reentrant=True or use_reentrant=False explicitly. The default value of use_reentrant will be updated to be False in the future. To maintain current behavior, pass use_reentrant=True. It is recommended that you use use_reentrant=False. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+/scratch/project_2009936/lib/python3.9/site-packages/torch/utils/checkpoint.py:429: UserWarning: torch.utils.checkpoint: please pass in use_reentrant=True or use_reentrant=False explicitly. The default value of use_reentrant will be updated to be False in the future. To maintain current behavior, pass use_reentrant=True. It is recommended that you use use_reentrant=False. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+/scratch/project_2009936/lib/python3.9/site-packages/torch/utils/checkpoint.py:61: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+/scratch/project_2009936/lib/python3.9/site-packages/torch/utils/checkpoint.py:61: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+/scratch/project_2009936/lib/python3.9/site-packages/torch/utils/checkpoint.py:61: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+/scratch/project_2009936/lib/python3.9/site-packages/torch/utils/checkpoint.py:429: UserWarning: torch.utils.checkpoint: please pass in use_reentrant=True or use_reentrant=False explicitly. The default value of use_reentrant will be updated to be False in the future. To maintain current behavior, pass use_reentrant=True. It is recommended that you use use_reentrant=False. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+/scratch/project_2009936/lib/python3.9/site-packages/torch/utils/checkpoint.py:61: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+{'loss': 2.3516, 'learning_rate': 0.0001, 'epoch': 0.02}
+{'loss': 2.3497, 'learning_rate': 0.0002, 'epoch': 0.04}
+{'loss': 1.7662, 'learning_rate': 0.00019981033287370443, 'epoch': 0.06}
+{'loss': 1.0497, 'learning_rate': 0.0001992420509671936, 'epoch': 0.08}
+{'loss': 0.5487, 'learning_rate': 0.0001982973099683902, 'epoch': 0.09}
+{'loss': 0.322, 'learning_rate': 0.00019697969360350098, 'epoch': 0.11}
+{'loss': 0.208, 'learning_rate': 0.00019529420004271567, 'epoch': 0.13}
+  2%|▏         | 1/53 [00:34<29:56, 34.55s/it]                                                2%|▏         | 1/53 [00:34<29:56, 34.55s/it]  4%|▍         | 2/53 [00:43<16:43, 19.68s/it]                                                4%|▍         | 2/53 [00:43<16:43, 19.68s/it]  6%|▌         | 3/53 [00:54<12:51, 15.44s/it]                                                6%|▌         | 3/53 [00:54<12:51, 15.44s/it]  8%|▊         | 4/53 [01:03<10:35, 12.97s/it]                                                8%|▊         | 4/53 [01:03<10:35, 12.97s/it]  9%|▉         | 5/53 [01:12<09:14, 11.56s/it]                                                9%|▉         | 5/53 [01:12<09:14, 11.56s/it] 11%|█▏        | 6/53 [01:21<08:23, 10.71s/it]                                               11%|█▏        | 6/53 [01:21<08:23, 10.71s/it] 13%|█▎        | 7/53 [01:30<07:47, 10.16s/it]                                               13%|█▎        | 7/53 [01:30<07:47, 10.1{'loss': 0.1579, 'learning_rate': 0.00019324722294043558, 'epoch': 0.15}
+{'loss': 0.146, 'learning_rate': 0.00019084652718195238, 'epoch': 0.17}
+{'loss': 0.1419, 'learning_rate': 0.00018810121942857845, 'epoch': 0.19}
+{'loss': 0.1346, 'learning_rate': 0.00018502171357296144, 'epoch': 0.21}
+{'loss': 0.1312, 'learning_rate': 0.0001816196912356222, 'epoch': 0.23}
+{'loss': 0.127, 'learning_rate': 0.00017790805745256704, 'epoch': 0.25}
+6s/it] 15%|█▌        | 8/53 [01:39<07:21,  9.81s/it]                                               15%|█▌        | 8/53 [01:39<07:21,  9.81s/it] 17%|█▋        | 9/53 [01:48<07:01,  9.57s/it]                                               17%|█▋        | 9/53 [01:48<07:01,  9.57s/it] 19%|█▉        | 10/53 [01:57<06:44,  9.41s/it]                                                19%|█▉        | 10/53 [01:57<06:44,  9.41s/it] 21%|██        | 11/53 [02:06<06:30,  9.31s/it]                                                21%|██        | 11/53 [02:06<06:30,  9.31s/it] 23%|██▎       | 12/53 [02:15<06:18,  9.23s/it]                                                23%|██▎       | 12/53 [02:15<06:18,  9.23s/it] 25%|██▍       | 13/53 [02:24<06:07,  9.18s/it]                                                25%|██▍       | 13/53 [02:24<06:07,  9.18s/it] 26%|██▋       | 14/53 [02:33<05:56,  9.14s/it]                                           {'loss': 0.1282, 'learning_rate': 0.00017390089172206592, 'epoch': 0.26}
+{'loss': 0.1262, 'learning_rate': 0.0001696133945962927, 'epoch': 0.28}
+{'loss': 0.128, 'learning_rate': 0.0001650618300204242, 'epoch': 0.3}
+{'loss': 0.1211, 'learning_rate': 0.00016026346363792567, 'epoch': 0.32}
+{'loss': 0.1223, 'learning_rate': 0.0001552364972960506, 'epoch': 0.34}
+{'loss': 0.1243, 'learning_rate': 0.00015000000000000001, 'epoch': 0.36}
+{'loss': 0.1213, 'learning_rate': 0.00014457383557765386, 'epoch': 0.38}
+     26%|██▋       | 14/53 [02:33<05:56,  9.14s/it] 28%|██▊       | 15/53 [02:42<05:46,  9.11s/it]                                                28%|██▊       | 15/53 [02:42<05:46,  9.11s/it] 30%|███       | 16/53 [02:52<05:36,  9.10s/it]                                                30%|███       | 16/53 [02:52<05:36,  9.10s/it] 32%|███▏      | 17/53 [03:01<05:27,  9.08s/it]                                                32%|███▏      | 17/53 [03:01<05:27,  9.08s/it] 34%|███▍      | 18/53 [03:10<05:17,  9.08s/it]                                                34%|███▍      | 18/53 [03:10<05:17,  9.08s/it] 36%|███▌      | 19/53 [03:19<05:08,  9.07s/it]                                                36%|███▌      | 19/53 [03:19<05:08,  9.07s/it] 38%|███▊      | 20/53 [03:30<05:17,  9.61s/it]                                                38%|███▊      | 20/53 [03:30<05:17,  9.61s/it] 40%|�{'loss': 0.1175, 'learning_rate': 0.00013897858732926793, 'epoch': 0.4}
+{'loss': 0.1174, 'learning_rate': 0.00013323547994796597, 'epoch': 0.42}
+{'loss': 0.1158, 'learning_rate': 0.0001273662990072083, 'epoch': 0.43}
+{'loss': 0.1162, 'learning_rate': 0.00012139330832064974, 'epoch': 0.45}
+{'loss': 0.1226, 'learning_rate': 0.00011533916548786857, 'epoch': 0.47}
+{'loss': 0.1221, 'learning_rate': 0.00010922683594633021, 'epoch': 0.49}
+��██▉      | 21/53 [03:39<05:03,  9.49s/it]                                                40%|███▉      | 21/53 [03:39<05:03,  9.49s/it] 42%|████▏     | 22/53 [03:48<04:50,  9.36s/it]                                                42%|████▏     | 22/53 [03:48<04:50,  9.36s/it] 43%|████▎     | 23/53 [03:57<04:38,  9.27s/it]                                                43%|████▎     | 23/53 [03:57<04:38,  9.27s/it] 45%|████▌     | 24/53 [04:06<04:26,  9.21s/it]                                                45%|████▌     | 24/53 [04:06<04:26,  9.21s/it] 47%|████▋     | 25/53 [04:15<04:16,  9.16s/it]                                                47%|████▋     | 25/53 [04:15<04:16,  9.16s/it] 49%|████▉     | 26/53 [04:24<04:06,  9.13s/it]                                                49%|████▉     | 26/53 [04:24<04:06,  9.13s/it] 51%|█████     | 27/53 [04:33<03:5{'loss': 0.1112, 'learning_rate': 0.00010307950585561706, 'epoch': 0.51}
+{'loss': 0.1164, 'learning_rate': 9.692049414438299e-05, 'epoch': 0.53}
+{'loss': 0.1144, 'learning_rate': 9.077316405366981e-05, 'epoch': 0.55}
+{'loss': 0.111, 'learning_rate': 8.466083451213144e-05, 'epoch': 0.57}
+{'loss': 0.1108, 'learning_rate': 7.860669167935028e-05, 'epoch': 0.58}
+{'loss': 0.1093, 'learning_rate': 7.263370099279172e-05, 'epoch': 0.6}
+6,  9.11s/it]                                                51%|█████     | 27/53 [04:33<03:56,  9.11s/it] 53%|█████▎    | 28/53 [04:42<03:47,  9.10s/it]                                                53%|█████▎    | 28/53 [04:42<03:47,  9.10s/it] 55%|█████▍    | 29/53 [04:51<03:38,  9.09s/it]                                                55%|█████▍    | 29/53 [04:51<03:38,  9.09s/it] 57%|█████▋    | 30/53 [05:00<03:28,  9.08s/it]                                                57%|█████▋    | 30/53 [05:00<03:28,  9.08s/it] 58%|█████▊    | 31/53 [05:09<03:19,  9.08s/it]                                                58%|█████▊    | 31/53 [05:09<03:19,  9.08s/it] 60%|██████    | 32/53 [05:18<03:10,  9.07s/it]                                                60%|██████    | 32/53 [05:18<03:10,  9.07s/it] 62%|██████▏   | 33/53 [05:28<03:01,  9.07s/{'loss': 0.1103, 'learning_rate': 6.676452005203406e-05, 'epoch': 0.62}
+{'loss': 0.1094, 'learning_rate': 6.102141267073207e-05, 'epoch': 0.64}
+{'loss': 0.112, 'learning_rate': 5.542616442234618e-05, 'epoch': 0.66}
+{'loss': 0.1111, 'learning_rate': 5.000000000000002e-05, 'epoch': 0.68}
+{'loss': 0.1067, 'learning_rate': 4.476350270394942e-05, 'epoch': 0.7}
+{'loss': 0.1087, 'learning_rate': 3.973653636207437e-05, 'epoch': 0.72}
+it]                                                62%|██████▏   | 33/53 [05:28<03:01,  9.07s/it] 64%|██████▍   | 34/53 [05:37<02:52,  9.07s/it]                                                64%|██████▍   | 34/53 [05:37<02:52,  9.07s/it] 66%|██████▌   | 35/53 [05:46<02:43,  9.07s/it]                                                66%|██████▌   | 35/53 [05:46<02:43,  9.07s/it] 68%|██████▊   | 36/53 [05:55<02:34,  9.06s/it]                                                68%|██████▊   | 36/53 [05:55<02:34,  9.06s/it] 70%|██████▉   | 37/53 [06:04<02:24,  9.06s/it]                                                70%|██████▉   | 37/53 [06:04<02:24,  9.06s/it] 72%|███████▏  | 38/53 [06:13<02:15,  9.06s/it]                                                72%|███████▏  | 38/53 [06:13<02:15,  9.06s/it] 74%|███████▎  | 39/53 [{'loss': 0.1057, 'learning_rate': 3.493816997957582e-05, 'epoch': 0.74}
+{'loss': 0.1041, 'learning_rate': 3.0386605403707346e-05, 'epoch': 0.75}
+{'loss': 0.1115, 'learning_rate': 2.6099108277934103e-05, 'epoch': 0.77}
+{'loss': 0.1051, 'learning_rate': 2.2091942547432955e-05, 'epoch': 0.79}
+{'loss': 0.1024, 'learning_rate': 1.8380308764377842e-05, 'epoch': 0.81}
+{'loss': 0.1035, 'learning_rate': 1.4978286427038601e-05, 'epoch': 0.83}
+06:22<02:06,  9.06s/it]                                                74%|███████▎  | 39/53 [06:22<02:06,  9.06s/it] 75%|███████▌  | 40/53 [06:31<01:57,  9.05s/it]                                                75%|███████▌  | 40/53 [06:31<01:57,  9.05s/it] 77%|███████▋  | 41/53 [06:40<01:48,  9.06s/it]                                                77%|███████▋  | 41/53 [06:40<01:48,  9.06s/it] 79%|███████▉  | 42/53 [06:49<01:39,  9.06s/it]                                                79%|███████▉  | 42/53 [06:49<01:39,  9.06s/it] 81%|████████  | 43/53 [06:59<01:33,  9.39s/it]                                                81%|████████  | 43/53 [06:59<01:33,  9.39s/it] 83%|████████▎ | 44/53 [07:08<01:23,  9.29s/it]                                                83%|████████▎ | 44/53 [07:08<01:23,  9.29s/it{'loss': 0.1076, 'learning_rate': 1.1898780571421552e-05, 'epoch': 0.85}
+{'loss': 0.1065, 'learning_rate': 9.153472818047625e-06, 'epoch': 0.87}
+{'loss': 0.1014, 'learning_rate': 6.75277705956443e-06, 'epoch': 0.89}
+{'loss': 0.104, 'learning_rate': 4.705799957284351e-06, 'epoch': 0.91}
+{'loss': 0.1077, 'learning_rate': 3.0203063964990617e-06, 'epoch': 0.92}
+] 85%|████████▍ | 45/53 [07:17<01:13,  9.22s/it]                                                85%|████████▍ | 45/53 [07:17<01:13,  9.22s/it] 87%|████████▋ | 46/53 [07:26<01:04,  9.17s/it]                                                87%|████████▋ | 46/53 [07:26<01:04,  9.17s/it] 89%|████████▊ | 47/53 [07:35<00:54,  9.13s/it]                                                89%|████████▊ | 47/53 [07:35<00:54,  9.13s/it] 91%|█████████ | 48/53 [07:44<00:45,  9.11s/it]                                                91%|█████████ | 48/53 [07:44<00:45,  9.11s/it] 92%|█████████▏| 49/53 [07:54<00:36,  9.09s/it]                                                92%|█████████▏| 49/53 [07:54<00:36,  9.09s/it] 94%|█████████▍| 50/53 [08:03<00:27,  9.08s/it]                                             {'loss': 0.1049, 'learning_rate': 1.7026900316098215e-06, 'epoch': 0.94}
+{'loss': 0.1037, 'learning_rate': 7.579490328064265e-07, 'epoch': 0.96}
+{'loss': 0.1024, 'learning_rate': 1.8966712629558957e-07, 'epoch': 0.98}
+{'loss': 0.1081, 'learning_rate': 0.0, 'epoch': 1.0}
+{'train_runtime': 514.1659, 'train_samples_per_second': 6.591, 'train_steps_per_second': 0.103, 'train_loss': 0.26278326505759975, 'epoch': 1.0}
+   94%|█████████▍| 50/53 [08:03<00:27,  9.08s/it] 96%|█████████▌| 51/53 [08:12<00:18,  9.07s/it]                                                96%|█████████▌| 51/53 [08:12<00:18,  9.07s/it] 98%|█████████▊| 52/53 [08:21<00:09,  9.06s/it]                                                98%|█████████▊| 52/53 [08:21<00:09,  9.06s/it]100%|██████████| 53/53 [08:30<00:00,  9.11s/it]                                               100%|██████████| 53/53 [08:30<00:00,  9.11s/it]                                               100%|██████████| 53/53 [08:30<00:00,  9.11s/it]100%|██████████| 53/53 [08:30<00:00,  9.63s/it]
+Some non-default generation parameters are set in the model config. These should go into a GenerationConfig file (https://huggingface.co/docs/transformers/generation_strategies#save-a-custom-decoding-strategy-with-your-model) instead. This warning will be raised to an exception in v4.41.
+Non-default generation parameters: {'max_length': 4096}
+You are using a model of type llava to instantiate a model of type llava_llama. This is not supported for all configurations of models and can yield errors.
+wandb: - 0.029 MB of 0.029 MB uploadedwandb: \ 0.029 MB of 0.029 MB uploadedwandb: | 0.029 MB of 0.029 MB uploadedwandb: / 0.052 MB of 0.052 MB uploadedwandb: 
+wandb: Run history:
+wandb:                    train/epoch ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:              train/global_step ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:            train/learning_rate ▅███████▇▇▇▇▇▆▆▆▆▅▅▅▅▄▄▄▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁▁
+wandb:                     train/loss ██▆▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:               train/total_flos ▁
+wandb:               train/train_loss ▁
+wandb:            train/train_runtime ▁
+wandb: train/train_samples_per_second ▁
+wandb:   train/train_steps_per_second ▁
+wandb: 
+wandb: Run summary:
+wandb:                    train/epoch 1.0
+wandb:              train/global_step 53
+wandb:            train/learning_rate 0.0
+wandb:                     train/loss 0.1081
+wandb:               train/total_flos 6054230753280.0
+wandb:               train/train_loss 0.26278
+wandb:            train/train_runtime 514.1659
+wandb: train/train_samples_per_second 6.591
+wandb:   train/train_steps_per_second 0.103
+wandb: 
+wandb: 🚀 View run spring-plasma-7 at: https://wandb.ai/kiran-gangadharannairkrishnan/huggingface/runs/pg6yoqcv
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20240328_112054-pg6yoqcv/logs
+[2024-03-28 11:30:03,620] [INFO] [launch.py:347:main] Process 3609809 exits successfully.
+[2024-03-28 11:30:03,620] [INFO] [launch.py:347:main] Process 3609807 exits successfully.
+[2024-03-28 11:30:04,621] [INFO] [launch.py:347:main] Process 3609806 exits successfully.
+[2024-03-28 11:30:04,621] [INFO] [launch.py:347:main] Process 3609808 exits successfully.

@@ -1,0 +1,9 @@
+NOTE: This module uses Singularity. Some commands execute inside the container
+(e.g. python3, pip3).
+
+Traceback (most recent call last):
+  File "/scratch/project_2009936/finetune_LLaVA-main/LLaVA-main/eval_llava.py", line 25, in <module>
+    ground_truth_coordinate.append(eval(regular_expression[0]))
+IndexError: list index out of range
+srun: error: g6301: task 0: Exited with exit code 1
+srun: Terminating StepId=3452209.0
